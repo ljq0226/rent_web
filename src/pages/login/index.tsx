@@ -1,6 +1,6 @@
 import { post } from '@/utils/http';
 import useStorage from '@/utils/useStorage';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Message } from '@arco-design/web-react';
 
@@ -10,6 +10,12 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [tenantUser, setTenantUser] = useStorage('tenantUser');
   const history = useHistory();
+  useEffect(() => {
+    if (tenantUser) {
+      const { username } = tenantUser;
+      setUsername(username);
+    }
+  }, [tenantUser]);
   const submit = async () => {
     try {
       const { code, msg, data } = isRegister
@@ -58,8 +64,8 @@ const Login = () => {
         />
         <div className="flex justify-between mt-4 text-sm font-semibold">
           <label className="flex cursor-pointer text-slate-500 hover:text-slate-600">
-            <input className="mr-1" type="checkbox" />
-            <span>记住密码</span>
+            {/* <input className="mr-1" type="checkbox" /> */}
+            {/* <span>记住密码</span> */}
           </label>
         </div>
         <div className="text-center md:text-left">
@@ -73,7 +79,7 @@ const Login = () => {
         </div>
         <div className="mt-4 text-sm font-semibold text-center text-slate-500 md:text-left">
           <div
-            className="text-red-600 hover:underline hover:underline-offset-4"
+            className="text-red-600 cursor-pointer hover:underline hover:underline-offset-4"
             onClick={() => {
               setIsRegister(!isRegister);
             }}

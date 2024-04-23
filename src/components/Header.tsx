@@ -1,13 +1,32 @@
 import React, { useState } from 'react';
-import { Navigation, LogOut, Menu } from 'lucide-react';
-import { Link } from 'react-router-dom';
-
+import { Navigation, LogIn, LogOut } from 'lucide-react';
+import { Link, useHistory } from 'react-router-dom';
+import { Avatar, Dropdown, Menu, Button, Space } from '@arco-design/web-react';
+import useStorage from '@/utils/useStorage';
 function Header({ placeholder = '' }) {
   const [searchInput, setSearchInput] = useState('');
+  const [tenantUser, , removeTenantUser] = useStorage('tenantUser');
   const user = JSON.parse(localStorage.getItem('rent_tenant') as string);
-  const signOut = () => {
-    localStorage.removeItem('rent_tenant');
+  const history = useHistory();
+  const signIn = () => {
+    history.push('/login');
   };
+  const signOut = () => {
+    history.push('/login');
+  };
+  const dropList = (
+    <Menu>
+      {!tenantUser ? (
+        <Menu.Item key="in" onClick={signIn}>
+          登录
+        </Menu.Item>
+      ) : (
+        <Menu.Item key="out" onClick={signOut}>
+          退出登录
+        </Menu.Item>
+      )}
+    </Menu>
+  );
   return (
     <div>
       <header className="sticky top-0 z-50 flex justify-between grid-cols-3 p-4 space-x-1 bg-white border-b shadow-md md:px-6">
@@ -36,7 +55,13 @@ function Header({ placeholder = '' }) {
           </div>
         </div>
         {/* Right */}
-        <div>avatar</div>
+        <div>
+          <Dropdown droplist={dropList} position="bl">
+            <Avatar className={'cursor-pointer'}>
+              <img alt="avatar" src="/public/assets/avatar.jpg" />
+            </Avatar>
+          </Dropdown>
+        </div>
       </header>
     </div>
   );
