@@ -6,7 +6,7 @@ const Banner = () => {
     <section className="relative h-[65vh] md:h-[85vh]">
       <div className="absolute z-10 w-full bg-gradient-to-b from-transparent-black to-transparent h-28" />
       <img
-        src="/public/assets/banner.webp"
+        src="/assets/banner.webp"
         alt="banner"
         style={{
           position: 'absolute',

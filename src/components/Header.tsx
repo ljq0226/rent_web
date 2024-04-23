@@ -58,7 +58,7 @@ function Header({ placeholder = '' }) {
         <div>
           <Dropdown droplist={dropList} position="bl">
             <Avatar className={'cursor-pointer'}>
-              <img alt="avatar" src="/public/assets/avatar.jpg" />
+              <img alt="avatar" src="/assets/avatar.jpg" />
             </Avatar>
           </Dropdown>
         </div>
