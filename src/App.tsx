@@ -6,6 +6,7 @@ import List from './pages/list';
 import Header from './components/Header';
 import { useEffect, useState } from 'react';
 import Loading from './components/Loader';
+import Footer from './components/Footer';
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -35,6 +36,7 @@ function App() {
           <Route path="/login" component={Login} />
         </Switch>
       )}
+      <Footer />
     </BrowserRouter>
   );
 }

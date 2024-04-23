@@ -12,7 +12,7 @@ const ListingCard = ({ data }: Props) => {
       <div
         className="flex flex-col w-full gap-2"
         onClick={() => {
-          history.push('/list/' + data?.id);
+          history.push('/list/' + data?.id, { data });
         }}
       >
         <figure className="relative w-full overflow-hidden aspect-square rounded-xl">

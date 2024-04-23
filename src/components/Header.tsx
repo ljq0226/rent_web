@@ -3,6 +3,7 @@ import { Navigation, LogIn, LogOut } from 'lucide-react';
 import { Link, useHistory } from 'react-router-dom';
 import { Avatar, Dropdown, Menu, Button, Space } from '@arco-design/web-react';
 import useStorage from '@/utils/useStorage';
+import Logo from './Logo';
 function Header({ placeholder = '' }) {
   const [searchInput, setSearchInput] = useState('');
   const [tenantUser, , removeTenantUser] = useStorage('tenantUser');
@@ -29,16 +30,15 @@ function Header({ placeholder = '' }) {
   );
   return (
     <div>
-      <header className="sticky top-0 z-50 flex justify-between grid-cols-3 p-4 space-x-1 bg-white border-b shadow-md md:px-6">
+      <header className="sticky top-0 z-50 flex justify-between grid-cols-3 p-4 space-x-1 bg-white border-b shadow-sm md:px-6">
         {/* Left */}
         <Link to="/">
           <div
-            className={`-mb-5 -ml-3 flex h-12 cursor-pointer items-center object-contain xs:-ml-0 ${
+            className={`-mb-5 ml-4  flex h-12 cursor-pointer items-center object-contain xs:-ml-0 ${
               user && 'child:mt-3'
             } `}
           >
-            {/* <AirbnbIcon className="w-16 h-16" />
-            <AirbnbLogo className="hidden h-10 w-28 md:inline-flex" /> */}
+            <Logo />
           </div>
         </Link>
         {/* Middle */}
