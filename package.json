@@ -12,6 +12,7 @@
   "dependencies": {
     "@arco-design/web-react": "^2.61.3",
     "@types/react-router-dom": "^5.3.3",
+    "dayjs": "^1.11.10",
     "lucide-react": "^0.372.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

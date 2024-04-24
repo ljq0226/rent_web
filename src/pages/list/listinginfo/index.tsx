@@ -3,6 +3,7 @@ import ListingHead from '../components/ListingHead';
 import { useLocation, useParams } from 'react-router-dom';
 import ListingInfo from '../components/ListingInfo';
 import ListingReservation from '../components/ListingReservation';
+import ListingDescription from '../components/ListingDescription';
 
 const ListingInfoApp = () => {
   const location = useLocation();
@@ -25,15 +26,9 @@ const ListingInfoApp = () => {
             locationValue={listing.locationValue}
           />
           <div className="grid grid-cols-1 mt-6 md:grid-cols-7 md:gap-10">
-            <ListingInfo
-              description={listing.description}
-              roomCount={listing.roomCount}
-              guestCount={listing.guestCount}
-              bathroomCount={listing.bathroomCount}
-              locationValue={listing.locationValue}
-            />
+            <ListingInfo listing={listing} />
             <div className="order-first mb-10 md:order-last md:col-span-3">
-              <ListingReservation
+              {/* <ListingReservation
                 price={listing.price}
                 totalPrice={totalPrice}
                 onChangeDate={(value) => setDateRange(value)}
@@ -41,7 +36,8 @@ const ListingInfoApp = () => {
                 // onSubmit={onCreateReservation}
                 disabled={isSubmitting}
                 // disabledDates={disabledDates}
-              />
+              /> */}
+              <ListingDescription listing={listing}  />
             </div>
           </div>
         </div>

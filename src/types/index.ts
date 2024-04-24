@@ -6,3 +6,5 @@ export const PriceTypeMap: Record<PriceType, string> = {
   YEARLY: '年',
 };
 type PriceType = 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'QUARTERLY' | 'YEARLY';
+
+export const RentType = ['整租','合租']

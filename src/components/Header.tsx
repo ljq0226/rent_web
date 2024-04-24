@@ -17,6 +17,22 @@ function Header({ placeholder = '' }) {
   };
   const dropList = (
     <Menu>
+      <Menu.Item
+        key="order"
+        onClick={() => {
+          history.push('/order');
+        }}
+      >
+        我的订单
+      </Menu.Item>
+      <Menu.Item
+        key="contract"
+        onClick={() => {
+          history.push('/contract');
+        }}
+      >
+        我的合同
+      </Menu.Item>
       {!tenantUser ? (
         <Menu.Item key="in" onClick={signIn}>
           登录
