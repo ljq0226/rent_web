@@ -10,6 +10,7 @@ export default {
     },
     extend: {
       colors: {
+        p: 'rgb(52, 145, 250)',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -66,4 +67,4 @@ export default {
     },
   },
   plugins: [],
-}
+};

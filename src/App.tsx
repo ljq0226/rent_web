@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import HomePage from './pages/home';
 import Login from './pages/login';
 import List from './pages/list';
+import Order from './pages/order';
+import Contract from './pages/contract';
 import Header from './components/Header';
 import { useEffect, useState } from 'react';
 import Loading from './components/Loader';
@@ -32,6 +34,14 @@ function App() {
           <Route path="/list">
             <Header />
             <List />
+          </Route>
+          <Route path="/order">
+            <Header />
+            <Order />
+          </Route>
+          <Route path="/contract">
+            <Header />
+            <Contract />
           </Route>
           <Route path="/login" component={Login} />
         </Switch>
