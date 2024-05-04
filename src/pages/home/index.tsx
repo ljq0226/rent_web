@@ -1,9 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Banner, Card } from '@/components/home/Banner';
 import AppNearby from '@/components/home/AppNearby';
 import AppLiveAnywhere from '@/components/home/AppLiveAnywhere';
-
+import useStorage from '@/utils/useStorage';
+import AuthenticationModal from '@/components/AuthenticationModal';
+import { post } from '@/utils/http';
+import { Message } from '@arco-design/web-react';
 const HomePage = () => {
+  const [visible, setVisible] = React.useState(false);
+
+  const [tenantUser, setTenantUser] = useStorage('tenantUser');
+  useEffect(() => {
+    console.log('userData', tenantUser);
+    const { isUpdate } = tenantUser;
+    if (!isUpdate) {
+      setVisible(true);
+    }
+  }, [tenantUser]);
+  const updateInfo = async (dto) => {
+    try {
+      const { code, msg, data } = await post(
+        'tenant/update_tenant/' + tenantUser.id,
+        {
+          isUpdate: true,
+          ...dto,
+        }
+      );
+      if (code == 200) {
+        setVisible(false);
+        console.log('data', data);
+        setTenantUser(data);
+        Message.success('身份认证成功!');
+      }
+    } catch (err) {
+      Message.error('身份认证失败' + err.toString());
+    }
+  };
   return (
     <div>
       <Banner />
@@ -12,6 +44,11 @@ const HomePage = () => {
         <AppLiveAnywhere />
       </main>
       <Card />
+      <AuthenticationModal
+        visible={visible}
+        setVisible={setVisible}
+        updateInfo={updateInfo}
+      />
     </div>
   );
 };
