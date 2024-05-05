@@ -18,6 +18,14 @@ function Header({ placeholder = '' }) {
   const dropList = (
     <Menu>
       <Menu.Item
+        key="wishlist"
+        onClick={() => {
+          history.push('/wishlist');
+        }}
+      >
+        我的心愿单
+      </Menu.Item>
+      <Menu.Item
         key="order"
         onClick={() => {
           history.push('/order');

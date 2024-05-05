@@ -11,6 +11,7 @@ import Header from './components/Header';
 import { useEffect, useState } from 'react';
 import Loading from './components/Loader';
 import Footer from './components/Footer';
+import WishList from './pages/wishlists';
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -32,6 +33,10 @@ function App() {
           <Route exact path="/">
             <Header />
             <HomePage />
+          </Route>
+          <Route path="/wishlist">
+            <Header />
+            <WishList />
           </Route>
           <Route path="/list">
             <Header />

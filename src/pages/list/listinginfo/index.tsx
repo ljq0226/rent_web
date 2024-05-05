@@ -24,6 +24,7 @@ const ListingInfoApp = () => {
             imageSrc={listing?.images}
             id={listing.id}
             locationValue={listing.locationValue}
+            listing = {listing}
           />
           <div className="grid grid-cols-1 mt-6 md:grid-cols-7 md:gap-10">
             <ListingInfo listing={listing} />

@@ -31,6 +31,9 @@ function AuthenticationModal({ visible, setVisible, updateInfo }: Props) {
           <FormItem label="姓名" field="realname">
             <Input placeholder="请输入你的真实姓名" />
           </FormItem>
+          <FormItem label="电话号码" field="phone">
+            <Input placeholder="请输入你的电话号码" />
+          </FormItem>
           <FormItem label="身份证" field="cardId">
             <Input placeholder="请输入你的身份证" />
           </FormItem>

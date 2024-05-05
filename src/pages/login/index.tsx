@@ -10,12 +10,6 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [tenantUser, setTenantUser] = useStorage('tenantUser');
   const history = useHistory();
-  useEffect(() => {
-    if (tenantUser) {
-      const { username } = tenantUser;
-      setUsername(username);
-    }
-  }, [tenantUser]);
   const submit = async () => {
     try {
       const { code, msg, data } = isRegister
@@ -33,7 +27,7 @@ const Login = () => {
         Message.success(isRegister ? '注册并登录成功' : '登录成功');
       }
     } catch (error: any) {
-      console.log('error', error);
+      Message.error(error.toString());
     }
   };
   return (
@@ -52,7 +46,6 @@ const Login = () => {
           className="w-full px-4 py-2 text-sm border border-gray-300 border-solid rounded"
           type="text"
           placeholder="用户名"
-          value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
@@ -60,7 +53,6 @@ const Login = () => {
           type="password"
           placeholder="密码"
           onChange={(e) => setPassword(e.target.value)}
-          value={password}
         />
         <div className="flex justify-between mt-4 text-sm font-semibold">
           <label className="flex cursor-pointer text-slate-500 hover:text-slate-600">

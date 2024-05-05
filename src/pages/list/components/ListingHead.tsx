@@ -1,10 +1,10 @@
 import Heading from './Heading';
 import { Image, Carousel } from '@arco-design/web-react';
 
-const ListingHead = ({ title, locationValue, id, imageSrc }: any) => {
+const ListingHead = ({ title, locationValue, id, imageSrc ,listing}: any) => {
   return (
     <>
-      <Heading title={title} subTitle={'SHANGHAI'} />
+      <Heading listing={listing} title={title} subTitle={'SHANGHAI'} />
       <figure className="relative flex h-[60vh] w-full overflow-hidden rounded-xl">
         {/* <img alt="Image" src={imageSrc} className="object-cover w-full" />
          */}
