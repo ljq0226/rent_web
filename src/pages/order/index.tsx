@@ -24,7 +24,7 @@ const App = () => {
       'order/get_user_order/' + tenantUser?.id
     );
     if (code == 200) {
-      setOrderList(data.arr);
+      setOrderList(data?.arr);
     }
   };
   const handleOk = async () => {
@@ -65,6 +65,7 @@ const App = () => {
                 onClick={() => {
                   setCurOrderIndex(index);
                 }}
+                key={index}
               >
                 <Avatar
                   className={'flex justify-center align-center mt-2 mr-2'}
@@ -72,9 +73,9 @@ const App = () => {
                   <img src="/assets/explore-nearby/41m.webp" alt="" />
                 </Avatar>
                 <div>
-                  <div>订单名称:{item.ordername}</div>
-                  <div>房东名称:{item.landlordName}</div>
-                  <div>房源标题:{item.listingTitle}</div>
+                  <div>订单名称:{item?.ordername}</div>
+                  <div>房东名称:{item?.landlordName}</div>
+                  <div>房源标题:{item?.listingTitle}</div>
                 </div>
                 <div className="flex items-center justify-center">
                   {item?.status == 0 && <div>未支付</div>}
@@ -91,15 +92,20 @@ const App = () => {
           )}
           <div className="flex pr-2 my-2 space-x-2">
             <div className="flex-1"></div>
-            {order?.status == 0 && (
+            {order?.contractId ? (
+              <>
+                <Button onClick={checkContract}>查看合同详情</Button>
+              </>
+            ) : order?.status == 0 ? (
               <>
                 <Button onClick={cancleOrder}>取消订单</Button>
                 <Button onClick={handleOk}>确认无误签发合同</Button>
               </>
-            )}
-            {order?.status == 1 && (
+            ) : (
               <>
-                <Button onClick={checkContract}>查看合同详情</Button>
+                {order?.status == 1 && (
+                  <Button onClick={checkContract}>查看合同详情</Button>
+                )}
               </>
             )}
           </div>

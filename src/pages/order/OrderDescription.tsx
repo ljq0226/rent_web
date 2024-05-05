@@ -17,6 +17,10 @@ const ListingDescription = ({ listing, order }) => {
       label: '附近描述',
       value: listing.nearbyInfo,
     },
+    {
+      label: '合同编号',
+      value: listing.contractId,
+    },
   ];
   const data2 = [
     {
