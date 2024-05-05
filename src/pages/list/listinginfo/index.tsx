@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ListingHead from '../components/ListingHead';
 import { useLocation, useParams } from 'react-router-dom';
 import ListingInfo from '../components/ListingInfo';
 import ListingReservation from '../components/ListingReservation';
 import ListingDescription from '../components/ListingDescription';
+import { get } from '@/utils/http';
+import { Message } from '@arco-design/web-react';
 
 const ListingInfoApp = () => {
   const location = useLocation();
   const state = location?.state as any;
   const [listing, setListing] = useState(state.data);
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [totalPrice, setTotalPrice] = useState(listing.price);
-  const [dateRange, setDateRange] = useState();
-
+  // const [isSubmitting, setIsSubmitting] = useState(false);
+  // const [totalPrice, setTotalPrice] = useState(listing.price);
+  // const [dateRange, setDateRange] = useState();
   return (
     <div className="max-w-[2520px] mx-auto xl:px-20 md:px-10 sm:px-2 px-4">
       <div className="max-w-screen-lg mx-auto ">
@@ -24,7 +24,7 @@ const ListingInfoApp = () => {
             imageSrc={listing?.images}
             id={listing.id}
             locationValue={listing.locationValue}
-            listing = {listing}
+            listing={listing}
           />
           <div className="grid grid-cols-1 mt-6 md:grid-cols-7 md:gap-10">
             <ListingInfo listing={listing} />
@@ -38,7 +38,7 @@ const ListingInfoApp = () => {
                 disabled={isSubmitting}
                 // disabledDates={disabledDates}
               /> */}
-              <ListingDescription listing={listing}  />
+              <ListingDescription listing={listing} />
             </div>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { Modal } from '@arco-design/web-react';
 import { Avatar } from '@arco-design/web-react';
 import { useEffect, useState } from 'react';
 import { get, post } from '@/utils/http';
+import ListingReviewList from './ListingReviewList';
 const ListingInfo = ({ listing }: any) => {
   const {
     keywords,
@@ -89,6 +90,9 @@ const ListingInfo = ({ listing }: any) => {
             显示更多{' >'}
           </div>
         </div>
+        <hr />
+        <div className="text-2xl font-bold">{'评论区'}</div>
+        <ListingReviewList listing={listing} />
       </div>
       <Modal
         title="关于此房源"

@@ -2,19 +2,31 @@ import { get, post } from '@/utils/http';
 import useStorage from '@/utils/useStorage';
 import React, { useEffect, useState } from 'react';
 import OrderDescription from './OrderDescription';
-import { Avatar, Button, Message } from '@arco-design/web-react';
+import {
+  Avatar,
+  Button,
+  Form,
+  Input,
+  Message,
+  Modal,
+  Rate,
+} from '@arco-design/web-react';
 import { useHistory } from 'react-router-dom';
+import FormItem from '@arco-design/web-react/es/Form/form-item';
 const App = () => {
   const [orderList, setOrderList] = useState([]);
   const [tenantUser] = useStorage('tenantUser');
+  const [visible, setVisible] = useState(false);
   const [order, setorder] = useState<any>({});
   const [curOrderIndex, setCurOrderIndex] = useState(0);
   const history = useHistory();
+  const [form] = Form.useForm();
   useEffect(() => {
     fetchData();
   }, []);
   useEffect(() => {
     setorder(orderList[curOrderIndex]);
+    console.log('orderList', orderList);
   }, [orderList]);
   useEffect(() => {
     setorder(orderList[curOrderIndex]);
@@ -53,6 +65,9 @@ const App = () => {
     } catch (err) {
       Message.error(err.toString());
     }
+  };
+  const postReview = async () => {
+    setVisible(true);
   };
   return (
     <div className="w-full h-[80vh] px-[12vw] mt-4">
@@ -94,6 +109,9 @@ const App = () => {
             <div className="flex-1"></div>
             {order?.contractId ? (
               <>
+                {order?.status == 1 && (
+                  <Button onClick={postReview}>发表评价</Button>
+                )}
                 <Button onClick={checkContract}>查看合同详情</Button>
               </>
             ) : order?.status == 0 ? (
@@ -104,12 +122,66 @@ const App = () => {
             ) : (
               <>
                 {order?.status == 1 && (
-                  <Button onClick={checkContract}>查看合同详情</Button>
+                  <>
+                    <Button onClick={postReview}>发表评价</Button>
+                    <Button onClick={checkContract}>查看合同详情</Button>
+                  </>
                 )}
               </>
             )}
           </div>
         </div>
+
+        <Modal
+          title="发表房源评价"
+          visible={visible}
+          onOk={async () => {
+            const { content, ...rating } = form.getFieldsValue();
+            const { tenantId, listingId, landlordId } = order;
+            const body = {
+              rating,
+              content,
+              tenantId,
+              listingId,
+              landlordId,
+            };
+            const { code, msg, data } = await post(
+              `review/create_review`,
+              body
+            );
+            if (code == 200) {
+              Message.success('发布成功!');
+            }
+            setVisible(false);
+          }}
+          onCancel={() => setVisible(false)}
+          autoFocus={false}
+          focusLock={true}
+        >
+          <Form form={form}>
+            <FormItem label="干净卫生" field="cleanliness">
+              <Rate count={5} allowHalf />
+            </FormItem>
+            <FormItem label="如实描述" field="description">
+              <Rate count={5} allowHalf />
+            </FormItem>
+            <FormItem label="入住便捷" field="checkIn">
+              <Rate count={5} allowHalf />
+            </FormItem>
+            <FormItem label="沟通顺畅" field="communication">
+              <Rate count={5} allowHalf />
+            </FormItem>
+            <FormItem label="地段优越" field="location">
+              <Rate count={5} allowHalf />
+            </FormItem>
+            <FormItem label="高性价比" field="value">
+              <Rate count={5} allowHalf />
+            </FormItem>
+            <FormItem label="总评" field="content">
+              <Input.TextArea />
+            </FormItem>
+          </Form>
+        </Modal>
       </div>
     </div>
   );
