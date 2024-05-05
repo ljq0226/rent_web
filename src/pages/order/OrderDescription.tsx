@@ -19,7 +19,7 @@ const ListingDescription = ({ listing, order }) => {
     },
     {
       label: '合同编号',
-      value: listing.contractId,
+      value: order.contractId,
     },
   ];
   const data2 = [

@@ -5,6 +5,8 @@ import Login from './pages/login';
 import List from './pages/list';
 import Order from './pages/order';
 import Contract from './pages/contract';
+import ContractList from './pages/contract/Contractlist';
+import ContractDetail from './pages/contract/ContractDetail';
 import Header from './components/Header';
 import { useEffect, useState } from 'react';
 import Loading from './components/Loader';
@@ -38,6 +40,14 @@ function App() {
           <Route path="/order">
             <Header />
             <Order />
+          </Route>
+          <Route path="/contract/:id">
+            <Header />
+            <ContractDetail />
+          </Route>
+          <Route path="/contractlist">
+            <Header />
+            <ContractList />
           </Route>
           <Route path="/contract">
             <Header />

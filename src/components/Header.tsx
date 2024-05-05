@@ -28,7 +28,7 @@ function Header({ placeholder = '' }) {
       <Menu.Item
         key="contract"
         onClick={() => {
-          history.push('/contract');
+          history.push('/contractlist');
         }}
       >
         我的合同

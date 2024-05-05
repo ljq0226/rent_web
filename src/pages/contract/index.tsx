@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import SignatureCanvas from 'react-signature-canvas';
-import { Button, Input, Message } from '@arco-design/web-react';
+import { Button, Message } from '@arco-design/web-react';
 import { useHistory, useLocation } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { PriceTypeMap } from '@/types';
@@ -12,16 +12,38 @@ const ContractPage = () => {
   const history = useHistory();
   const sigCanvas = useRef<any>({});
   const clearBtnRef = useRef<any>();
+  const partyASignRef = useRef<any>();
   const location = useLocation();
   const [visible, setVisible] = useState(false);
   const [tenantUser] = useStorage('tenantUser');
   const state = location.state as any;
   const [record, setRecord] = useState(state);
+  const [base64Image, setBase64Image] = useState<any>('');
+
   const [landlordInfo, setLandlordInfo] = useState<any>();
   const contractRef = useRef();
   useEffect(() => {
     getLandlordInfo();
   }, [state]);
+
+  useEffect(() => {
+    if (landlordInfo?.signature) {
+      fetchImage('https://' + landlordInfo?.signature);
+    }
+  }, [landlordInfo]);
+
+  async function fetchImage(url) {
+    const response = await fetch(url);
+    console.log('response', response);
+    const blob = await response.blob();
+
+    const reader = new FileReader();
+    reader.onloadend = function () {
+      setBase64Image(reader.result);
+    };
+    reader.readAsDataURL(blob);
+  }
+
   const getLandlordInfo = async () => {
     const { code, msg, data }: any = await get('landlord/' + state.landlordId);
     if (code == 200) {
@@ -71,7 +93,9 @@ const ContractPage = () => {
       if (clearBtn) {
         clearBtn.style.display = 'none';
       }
-      html2canvas(contract)
+      html2canvas(contract, {
+        useCORS: true,
+      })
         .then(async (canvas) => {
           const fix = Date.now();
           const fileName = `contract${fix}.png`;
@@ -81,13 +105,12 @@ const ContractPage = () => {
           link.download = fileName;
           link.click();
           canvas.toBlob(async (blob) => {
-            //blob to file
             const file = new File([blob], fileName, {
               type: 'image/png',
             });
             const { data, code }: any = await uploadFile('upload', file);
             if (code == 200) {
-              saveContract(fileName);
+              saveContract(data?.fileUrl);
             }
           });
           return;
@@ -150,7 +173,9 @@ const ContractPage = () => {
         </p>
         <h2 className="my-4 text-xl font-bold">第五条押金</h2>
         <p>
-          　甲、乙双方自本合同签订之日起，由乙方支付甲方押金______，租赁期满，房屋经甲方验收合格后全额退还给乙方。
+          　甲、乙双方自本合同签订之日起，由乙方支付甲方押金
+          <span className="text-p">{record.listing?.deposit}</span>
+          ，租赁期满，房屋经甲方验收合格后全额退还给乙方。
         </p>
         <ContractInfo />
         <div className="flex w-full">
@@ -165,9 +190,22 @@ const ContractPage = () => {
             </div>
             <div>
               甲方（签字或签章）：
-              <div>
-                <img src={'https://' + landlordInfo?.signature} alt="" />
-                {/* <img src={imgSrc} alt="甲方" className="w-[400px] h-[150px]" /> */}
+              <div ref={partyASignRef}>
+                {/* <canvas
+                  className="w-full mt-6  border-gray-500 h-[150px]"
+                  style={{
+                    backgroundImage:
+                      'url(' + 'https://' + landlordInfo?.signature + ')',
+                    backgroundPosition: 'left',
+                    backgroundRepeat: 'no-repeat',
+                  }}
+                /> */}
+                {base64Image && <img src={base64Image} alt="Base64" />}
+                {/* <img
+                  crossOrigin="anonymous"
+                  src={'https://' + landlordInfo?.signature}
+                  alt=""
+                /> */}
               </div>
             </div>
           </div>

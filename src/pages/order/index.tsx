@@ -38,7 +38,7 @@ const App = () => {
     }
   };
   const checkContract = () => {
-    history.push('/contract', order);
+    history.push('/contract/' + order?.contractId, order);
   };
   const cancleOrder = async () => {
     try {

@@ -11,8 +11,7 @@ const HomePage = () => {
 
   const [tenantUser, setTenantUser] = useStorage('tenantUser');
   useEffect(() => {
-    console.log('userData', tenantUser);
-    const { isUpdate } = tenantUser;
+    const isUpdate = tenantUser?.isUpdate;
     if (!isUpdate) {
       setVisible(true);
     }
