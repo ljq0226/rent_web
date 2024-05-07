@@ -62,7 +62,7 @@ const ListingReviewList = ({ listing }: Props) => {
             <div className="flex">
               <Comment
                 author={tenant.username}
-                avatar={tenant.avatar || '/assets/avatar.jpg'}
+                avatar={'https://' + tenant.avatar || '/assets/avatar.jpg'}
                 content={item.content}
                 datetime={dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')}
               />

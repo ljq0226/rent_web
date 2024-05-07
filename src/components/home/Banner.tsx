@@ -22,11 +22,14 @@ const Banner = () => {
       <div className="container">
         <div className="absolute z-10 left-0 right-0 top-[45%] md:top-[50%] xl:top-[40%]">
           <h1 className="max-w-[250px] xl:max-w-[350px] mx-auto px-4 text-2xl font-bold tracking-wide text-center text-gray-500 md:px-0 md:text-3xl xl:text-4xl">
-            Not sure where to go? Perfect.
+            一瓦一世界，留住每一刻温情
           </h1>
-          <div className="text-center">
-            <button className="px-8 py-2 mx-auto mt-4 text-sm font-medium text-white duration-150 rounded-md sm:py-3 active:scale-90 text-md bg-primary md:mx-0 hover:shadow-xl lg:text-base">
-              <Link to={'/list'}>I&apos;m flexible</Link>
+          <div className="space-x-2 text-center">
+            <button className="px-8 py-2 mx-auto mt-4 text-sm text-[#1a1] font-bold duration-150 bg-white rounded-md sm:py-3 active:scale-90 text-md md:mx-0 hover:shadow-xl lg:text-base">
+              <Link to={'/list'}>快捷租房</Link>
+            </button>
+            <button className="px-8 py-2 mx-auto mt-4 text-sm text-[#1a1] font-bold duration-150 bg-white rounded-md sm:py-3 active:scale-90 text-md md:mx-0 hover:shadow-xl lg:text-base">
+              <Link to={'/list'}>快捷短租</Link>
             </button>
           </div>
         </div>
@@ -57,15 +60,12 @@ const Card = () => {
           </div>
 
           <div className="absolute z-10 right-8 left-8 sm:right-12 sm:left-12 md:left-16 lg:left-20 md:right-16 lg:right-20 top-8 sm:top-12 md:top-auto md:bottom-1/2 md:translate-y-1/2 md:text-left">
-            <h2 className="font-bold sm:font-normal text-gray-500 md:mb-2 w-[180px] sm:w-[350px] md:mx-0 text-2xl sm:text-4xl xl:text-5xl leading-7">
-              The Greatest Outdoors
+            <h2 className="font-bold sm:font-normal text-gray-500 md:mb-2 w-[180px] sm:w-[350px] md:mx-0 text-md sm:text-xl xl:text-2xl leading-7">
+              春水初生，春林初盛，春风十里，不如你。
             </h2>
-            <p className="mb-4 text-xs text-gray-500 sm:mb-5 sm:text-base">
-              Whitelists curated by Airbnb
-            </p>
-            <button className="px-6 py-2 text-sm font-medium text-white bg-gray-500 rounded-lg sm:text-base sm:py-3">
-              Get Inspired
-            </button>
+            <h2 className="ml-2 font-bold sm:font-normal text-gray-500 md:mb-2 w-[180px] sm:w-[350px] md:mx-0 text-md sm:text-xl xl:text-2xl leading-7">
+              夏河始溢，夏木始密，夏月万顷，唯余情。
+            </h2>
           </div>
         </div>
       </div>

@@ -60,7 +60,7 @@ const ListingInfo = ({ listing }: any) => {
             <Avatar className={'cursor-pointer'}>
               <img
                 alt="avatar"
-                src={landlord?.avatar || '/assets/avatar.jpg'}
+                src={'https://' + landlord?.avatar || '/assets/avatar.jpg'}
               />
             </Avatar>
             <div className="text-xl font-semibold">{landlord?.username}</div>
