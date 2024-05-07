@@ -7,30 +7,49 @@ import {
   Tag,
   Skeleton,
   Link,
+  Message,
 } from '@arco-design/web-react';
+import { debounce } from 'lodash';
 import { IconCamera, IconPlus } from '@arco-design/web-react/icon';
 import styles from './style/header.module.less';
+import useStorage from '@/utils/useStorage';
+import dayjs from 'dayjs';
+import { post, uploadFile } from '@/utils/http';
 
-export default function Info({ userInfo = {} }: { userInfo: any }) {
-  const [avatar, setAvatar] = useState('');
-
-  function onAvatarChange(_, file) {
-    setAvatar(file.originFile ? URL.createObjectURL(file.originFile) : '');
-  }
-
-  useEffect(() => {
-    setAvatar(userInfo.avatar);
-  }, [userInfo]);
-
-  const loadingImg = (
-    <Skeleton
-      text={{ rows: 0 }}
-      style={{ width: '100px', height: '100px' }}
-      animation
-    />
+export default function Info() {
+  const [userInfo, setUserInfo] = useStorage('tenantUser');
+  const [avatar, setAvatar] = useState(
+    userInfo?.avatar
+      ? 'https://' + userInfo?.avatar
+      : '../../../public/assets/avatar.jpg'
   );
 
-  const loadingNode = <Skeleton text={{ rows: 1 }} animation />;
+  const onAvatarChange = debounce(async (_, file) => {
+    const { code, data, msg }: any = await uploadFile(
+      'upload',
+      file.originFile
+    );
+    if (code == 200) {
+      const newAvatar = 'https://' + data.fileUrl;
+      const res = await post('tenant/update_tenant/' + userInfo.id, {
+        avatar: data.fileUrl,
+      });
+      if (res?.code == 200) {
+        setAvatar(newAvatar);
+        setUserInfo(res?.data);
+        Message.success('头像修改成功');
+      }
+    } else {
+      Message.error(msg);
+    }
+  }, 300);
+
+  useEffect(() => {
+    if (userInfo) {
+      if (userInfo?.avatar) setAvatar('https://' + userInfo.avatar);
+    }
+  }, [userInfo]);
+
   return (
     <div className={styles['info-wrapper']}>
       <Upload showUploadList={false} onChange={onAvatarChange}>
@@ -40,31 +59,27 @@ export default function Info({ userInfo = {} }: { userInfo: any }) {
             triggerIcon={<IconCamera />}
             className={styles['info-avatar']}
           >
-            {avatar ? <img src={avatar} /> : <IconPlus />}
+            {<img src={avatar} />}
           </Avatar>
         }
       </Upload>
       <Descriptions
         className={styles['info-content']}
-        column={2}
+        column={1}
         colon="："
         labelStyle={{ textAlign: 'right' }}
         data={[
           {
             label: '用户名',
-            value: userInfo.name,
+            value: userInfo.username,
           },
           {
             label: '账号 ID',
-            value: userInfo.accountId,
-          },
-          {
-            label: '手机号码',
-            value: <span>{userInfo.phoneNumber}</span>,
+            value: userInfo.id,
           },
           {
             label: '注册时间',
-            value: userInfo.registrationTime,
+            value: dayjs(userInfo.createdAt).format('YYYY-MM-DD HH:mm:ss'),
           },
         ]}
       ></Descriptions>

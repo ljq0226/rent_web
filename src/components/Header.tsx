@@ -1,14 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Navigation, LogIn, LogOut } from 'lucide-react';
 import { Link, useHistory } from 'react-router-dom';
 import { Avatar, Dropdown, Menu, Button, Space } from '@arco-design/web-react';
 import useStorage from '@/utils/useStorage';
 import Logo from './Logo';
 function Header({ placeholder = '' }) {
-  const [searchInput, setSearchInput] = useState('');
+  const inputRef = useRef(null);
+  const [searchInput, setSearchInput] = useStorage('searchInput', '');
   const [tenantUser, , removeTenantUser] = useStorage('tenantUser');
   const user = JSON.parse(localStorage.getItem('rent_tenant') as string);
   const history = useHistory();
+  const [avatar, setAvatar] = useState(
+    tenantUser?.avatar ? 'https://' + tenantUser?.avatar : '/assets/avatar.jpg'
+  );
+  useEffect(() => {
+    if (tenantUser) {
+      setAvatar(
+        tenantUser?.avatar
+          ? 'https://' + tenantUser?.avatar
+          : '/assets/avatar.jpg'
+      );
+    }
+  }, [tenantUser]);
+  const handleSearch = () => {
+    const input = inputRef.current.value;
+    setSearchInput(input);
+    history.push(`/list?searchInput=${input}`);
+  };
   const signIn = () => {
     history.push('/login');
   };
@@ -41,6 +59,14 @@ function Header({ placeholder = '' }) {
       >
         我的合同
       </Menu.Item>
+      <Menu.Item
+        key="user"
+        onClick={() => {
+          history.push('/user');
+        }}
+      >
+        用户设置
+      </Menu.Item>
       {!tenantUser ? (
         <Menu.Item key="in" onClick={signIn}>
           登录
@@ -69,12 +95,14 @@ function Header({ placeholder = '' }) {
         <div className="my-auto flex h-12 max-w-[180px] flex-grow items-center rounded-full border-2 px-2 shadow-sm md:max-w-sm xs:max-w-sm">
           <input
             type="text"
+            ref={inputRef}
             className="flex-1 pl-2 truncate bg-transparent outline-none text-gray-6 00"
             placeholder={placeholder ? placeholder : '输入你想去的地方'}
             value={searchInput}
             onChange={(event) => setSearchInput(event.target.value)}
+            onKeyDown={(event) => event.key === 'Enter' && handleSearch()}
           />
-          <div>
+          <div onClick={handleSearch}>
             <Navigation className="-mr-[2px] ml-3 h-9 w-9 cursor-pointer rounded-full bg-opacity-75 p-2 hover:bg-opacity-95" />
           </div>
         </div>
@@ -82,7 +110,7 @@ function Header({ placeholder = '' }) {
         <div>
           <Dropdown droplist={dropList} position="bl">
             <Avatar className={'cursor-pointer'}>
-              <img alt="avatar" src="/assets/avatar.jpg" />
+              <img alt="avatar" src={avatar} />
             </Avatar>
           </Dropdown>
         </div>
