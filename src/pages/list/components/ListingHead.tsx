@@ -1,7 +1,7 @@
 import Heading from './Heading';
 import { Image, Carousel } from '@arco-design/web-react';
 
-const ListingHead = ({ title, locationValue, id, imageSrc ,listing}: any) => {
+const ListingHead = ({ title, locationValue, id, imageSrc, listing }: any) => {
   return (
     <>
       <Heading listing={listing} title={title} subTitle={'SHANGHAI'} />
@@ -15,7 +15,7 @@ const ListingHead = ({ title, locationValue, id, imageSrc ,listing}: any) => {
           showArrow="hover"
           className={'w-[50vw]'}
         >
-          {imageSrc.split(';').map((src, index) => (
+          {imageSrc?.split(';').map((src, index) => (
             <div key={index}>
               <Image
                 src={'https://' + src}

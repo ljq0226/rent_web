@@ -9,7 +9,7 @@ const Heading = ({ title, subTitle, center, listing }: any) => {
   const [isInWishList, setIsInWishList] = useState(false);
   const handleClick = () => {
     if (isInWishList) {
-      setWishList(wishList.filter((item) => item.id !== listing.id));
+      setWishList(wishList.filter((item) => item.id !== listing?.id));
       setIsInWishList(false);
       Message.info('从心愿单移除');
     } else {
@@ -20,7 +20,7 @@ const Heading = ({ title, subTitle, center, listing }: any) => {
   };
   useEffect(() => {
     wishList.map((item) => {
-      if (item.id == listing.id) {
+      if (item.id == listing?.id) {
         setIsInWishList(true);
       }
     });

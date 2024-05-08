@@ -34,7 +34,6 @@ const ContractPage = () => {
 
   async function fetchImage(url) {
     const response = await fetch(url);
-    console.log('response', response);
     const blob = await response.blob();
 
     const reader = new FileReader();

@@ -26,7 +26,6 @@ const App = () => {
   }, []);
   useEffect(() => {
     setorder(orderList[curOrderIndex]);
-    console.log('orderList', orderList);
   }, [orderList]);
   useEffect(() => {
     setorder(orderList[curOrderIndex]);

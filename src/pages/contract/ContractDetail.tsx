@@ -7,7 +7,6 @@ const ContractDetail = () => {
   const getContract = async () => {
     const { code, data, msg }: any = await get(`contract/${params.id}`);
     if (code === 200) {
-      console.log('data', data);
       setContract(data.url);
     }
   };

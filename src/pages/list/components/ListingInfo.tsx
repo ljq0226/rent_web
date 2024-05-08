@@ -7,22 +7,10 @@ import { useEffect, useState } from 'react';
 import { get, post } from '@/utils/http';
 import ListingReviewList from './ListingReviewList';
 const ListingInfo = ({ listing }: any) => {
-  const {
-    keywords,
-    description,
-    roomCount,
-    livingroomCount,
-    bathroomCount,
-    about,
-    listingIntro,
-    tenantPermission,
-    others,
-  } = listing;
-  console.log('listing', listing);
   const [visible, setVisible] = useState(false);
   const [landlord, setLandlord] = useState(null);
   useEffect(() => {
-    getLandlordInfo();
+    if (listing?.landlordId) getLandlordInfo();
   }, [listing?.landlordId]);
   const getLandlordInfo = async () => {
     const { code, data, msg } = await get(`landlord/${listing?.landlordId}`);
@@ -34,14 +22,20 @@ const ListingInfo = ({ listing }: any) => {
     <>
       <div className="flex flex-col col-span-4 gap-4 mb-[300px]">
         <div className="flex flex-col gap-2">
-          <div className="text-2xl font-bold">{keywords}</div>
+          <div className="text-2xl font-bold">{listing?.keywords}</div>
           <div className="flex">
-            {description}
+            {listing?.description}
             {' · '}
             <div className="flex flex-row items-center font-light text-neutral-500">
-              <div>{roomCount ? roomCount + '室' : ''}</div>
-              <div>{livingroomCount ? livingroomCount + '厅' : ''}</div>
-              <div>{bathroomCount ? bathroomCount + '卫' : ''}</div>
+              <div>{listing?.roomCount ? listing?.roomCount + '室' : ''}</div>
+              <div>
+                {listing?.livingroomCount
+                  ? listing?.livingroomCount + '厅'
+                  : ''}
+              </div>
+              <div>
+                {listing?.bathroomCount ? listing?.bathroomCount + '卫' : ''}
+              </div>
             </div>
           </div>
           <div className="flex justify-start ">
@@ -77,11 +71,13 @@ const ListingInfo = ({ listing }: any) => {
         </div>
 
         <hr />
-        <div className="text-lg font-light text-neutral-500">{description}</div>
+        <div className="text-lg font-light text-neutral-500">
+          {listing?.description}
+        </div>
         <hr />
         <div className="text-2xl font-bold">{'关于此房源'}</div>
         <div>
-          <div>{about}</div>
+          <div>{listing?.about}</div>
           <div className="font-light">{'···'}</div>
           <div
             className="mt-1 text-sm font-semibold underline cursor-pointer"
@@ -103,23 +99,23 @@ const ListingInfo = ({ listing }: any) => {
         onCancel={() => setVisible(false)}
         footer={null}
       >
-        <p>{about}</p>
-        {listingIntro && (
+        <p>{listing?.about}</p>
+        {listing?.listingIntro && (
           <>
             <h2 className="my-2 font-semibold">房源介绍</h2>
-            <p>{listingIntro}</p>
+            <p>{listing?.listingIntro}</p>
           </>
         )}
-        {tenantPermission && (
+        {listing?.tenantPermission && (
           <>
             <h2 className="my-2 font-semibold">租客权限</h2>
-            <p>{tenantPermission}</p>
+            <p>{listing?.tenantPermission}</p>
           </>
         )}
-        {others && (
+        {listing?.others && (
           <>
             <h2 className="my-2 font-semibold">其他注意事项</h2>
-            <p>{others}</p>
+            <p>{listing?.others}</p>
           </>
         )}
       </Modal>

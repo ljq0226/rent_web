@@ -18,3 +18,15 @@ export function base64ToBlob(base64, filename) {
   const file= new File([blob], filename, {type: mime});
   return file;
 }
+
+
+export function parseUrl(url){
+  const args = url.substr(url.indexOf('?')+1)
+  const argsArr = args.split('&')
+  const obj = {}
+  argsArr.map(item=>{
+    const [key,value] = item.split('=')
+    obj[key] = value
+  })
+  return obj
+}

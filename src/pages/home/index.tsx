@@ -27,7 +27,6 @@ const HomePage = () => {
       );
       if (code == 200) {
         setVisible(false);
-        console.log('data', data);
         setTenantUser(data);
         Message.success('身份认证成功!');
       }

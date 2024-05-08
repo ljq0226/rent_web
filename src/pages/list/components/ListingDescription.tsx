@@ -7,75 +7,75 @@ const ListingDescription = ({ listing }) => {
   const data1 = [
     {
       label: '城市',
-      value: listing.city,
+      value: listing?.city,
     },
     {
       label: '地址',
-      value: listing.address,
+      value: listing?.address,
     },
     {
       label: '附近描述',
-      value: listing.nearbyInfo,
+      value: listing?.nearbyInfo,
     },
   ];
   const data2 = [
     {
       label: '租赁方式',
-      value: RentType[listing.rentType],
+      value: RentType[listing?.rentType],
     },
     {
       label: '租金',
-      value: listing.price,
+      value: listing?.price,
     },
     {
       label: '租赁周期',
-      value: '每' + PriceTypeMap[listing.priceType],
+      value: '每' + PriceTypeMap[listing?.priceType],
     },
     {
       label: '可租赁时间',
       value:
-        dayjs(listing.availableFrom).format('YYYY-MM-DD') +
+        dayjs(listing?.availableFrom).format('YYYY-MM-DD') +
         '——' +
-        dayjs(listing.availableUntil).format('YYYY-MM-DD'),
+        dayjs(listing?.availableUntil).format('YYYY-MM-DD'),
     },
   ];
   const data3 = [
     {
       label: '房间数',
-      value: listing.roomCount,
+      value: listing?.roomCount,
     },
     //客厅
     {
       label: '客厅',
-      value: listing.livingroomCount,
+      value: listing?.livingroomCount,
     },
     //卫生间
     {
       label: '卫生间',
-      value: listing.bathroomCount,
+      value: listing?.bathroomCount,
     },
     {
       label: '面积',
-      value: listing.area,
+      value: listing?.area,
     },
     //楼层
     {
       label: '楼层',
-      value: listing.floor,
+      value: listing?.floor,
     },
     //楼层总数
     {
       label: '楼层总数',
-      value: listing.totalFloor,
+      value: listing?.totalFloor,
     },
     //建筑年份
     {
       label: '建筑年份',
-      value: listing.buildYear,
+      value: listing?.buildYear,
     },
     {
       label: '朝向',
-      value: listing.direction,
+      value: listing?.direction,
     },
   ];
   return (
