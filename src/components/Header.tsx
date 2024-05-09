@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Navigation, LogIn, LogOut } from 'lucide-react';
+import { Navigation, LogIn, LogOut, X } from 'lucide-react';
 import { Link, useHistory } from 'react-router-dom';
 import { Avatar, Dropdown, Menu, Button, Space } from '@arco-design/web-react';
 import useStorage from '@/utils/useStorage';
@@ -102,6 +102,16 @@ function Header({ placeholder = '' }) {
             onChange={(event) => setSearchInput(event.target.value)}
             onKeyDown={(event) => event.key === 'Enter' && handleSearch()}
           />
+          {searchInput && (
+            <X
+              onClick={() => {
+                inputRef.current.value = '';
+                setSearchInput('');
+                handleSearch();
+              }}
+              className="w-[15px] h-[15px] cursor-pointer"
+            />
+          )}
           <div onClick={handleSearch}>
             <Navigation className="-mr-[2px] ml-3 h-9 w-9 cursor-pointer rounded-full bg-opacity-75 p-2 hover:bg-opacity-95" />
           </div>

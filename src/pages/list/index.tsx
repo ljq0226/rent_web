@@ -65,6 +65,15 @@ const HomePage = () => {
   };
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
+    if (searchInput) {
+      setLoading(true);
+      getListDataBySearch(searchInput);
+    } else {
+      getListData();
+    }
+  }, [searchInput]);
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
     if (price !== undefined) {
       (price as number) < 0
         ? searchParams.delete('price')
@@ -74,7 +83,7 @@ const HomePage = () => {
     if (rentType !== undefined) {
       (rentType as number) < 0
         ? searchParams.delete('rentType')
-        : searchParams.set('rentType', price);
+        : searchParams.set('rentType', rentType);
     }
 
     if (roomCount !== undefined) {
@@ -82,17 +91,12 @@ const HomePage = () => {
         ? searchParams.delete('roomCount')
         : searchParams.set('roomCount', roomCount);
     }
-    if (searchInput) {
-      setLoading(true);
-      getListDataBySearch(searchInput)
-    } else {
-      getListData();
-    }
+    getListDataBySearch(searchInput);
     history.replace({
       pathname: location.pathname,
       search: searchParams.toString(),
     });
-  }, [price, rentType, roomCount, history, location.pathname, searchInput]);
+  }, [price, rentType, roomCount, searchInput]);
   useEffect(() => {
     setSearchInput(parseUrl(location.search)['searchInput']);
   }, [location.search]);
@@ -154,6 +158,7 @@ const HomePage = () => {
                     type="button"
                     name="rentType"
                     onChange={(value) => {
+                      console.log('value', value);
                       setRentType(value);
                     }}
                   >
