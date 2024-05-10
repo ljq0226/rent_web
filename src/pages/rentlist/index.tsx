@@ -1,23 +1,18 @@
-import Header from '@/components/Header';
 import React, { useEffect, useState } from 'react';
 import ListingCard from './components/ListingCard';
 import { get } from '@/utils/http';
-import { debounce } from 'lodash';
 import {
   Route,
   Switch,
   useRouteMatch,
-  useParams,
   useHistory,
   useLocation,
 } from 'react-router-dom';
 import ListingInfo from './listinginfo';
-import useStorage from '@/utils/useStorage';
 import Loader from '@/components/Loader';
 import { Radio, Form } from '@arco-design/web-react';
 import { parseUrl } from '@/utils';
 const RadioGroup = Radio.Group;
-const FormItem = Form.Item;
 const HomePage = () => {
   let { path } = useRouteMatch();
   const history = useHistory();
@@ -37,7 +32,7 @@ const HomePage = () => {
       rentType,
       roomCount,
       searchInput,
-      isShort: true,
+      isShort: false,
     };
     const queryString = Object.keys(body)
       .map((key) => {
@@ -49,7 +44,7 @@ const HomePage = () => {
       })
       .join('&');
     const { msg, data, code }: any = await get(
-      'listing/getall_listing_bysearch/?' + queryString
+      'listing/getall_listing_bysearch_short/?' + queryString
     );
     if (code === 200) {
       setListData(data?.arr);
@@ -59,7 +54,7 @@ const HomePage = () => {
     }
   };
   const getListData = async () => {
-    const { code, data, msg }: any = await get(`listing/getall_listing_short`);
+    const { code, data, msg }: any = await get(`listing/getall_listing_notshort`);
     if (code == 200) {
       setListData(data?.arr);
     }

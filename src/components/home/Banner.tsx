@@ -26,7 +26,7 @@ const Banner = () => {
           </h1>
           <div className="space-x-2 text-center">
             <button className="px-8 py-2 mx-auto mt-4 text-sm text-[#1a1] font-bold duration-150 bg-white rounded-md sm:py-3 active:scale-90 text-md md:mx-0 hover:shadow-xl lg:text-base">
-              <Link to={'/list'}>快捷租房</Link>
+              <Link to={'/rentlist'}>快捷租房</Link>
             </button>
             <button className="px-8 py-2 mx-auto mt-4 text-sm text-[#1a1] font-bold duration-150 bg-white rounded-md sm:py-3 active:scale-90 text-md md:mx-0 hover:shadow-xl lg:text-base">
               <Link to={'/list'}>快捷短租</Link>

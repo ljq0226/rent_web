@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import HomePage from './pages/home';
 import Login from './pages/login';
 import List from './pages/list';
+import RentList from './pages/rentlist';
 import Order from './pages/order';
 import Contract from './pages/contract';
 import ContractList from './pages/contract/Contractlist';
@@ -46,6 +47,10 @@ function App() {
           <Route path="/list">
             <Header />
             <List />
+          </Route>
+          <Route path="/rentlist">
+            <Header />
+            <RentList />
           </Route>
           <Route path="/order">
             <Header />

@@ -16,9 +16,6 @@ const ListingCard = ({ data }: Props) => {
         }}
       >
         <figure className="relative w-full overflow-hidden aspect-square rounded-xl">
-          <div className="absolute right-0 z-20 flex items-center justify-center w-16 h-16">
-            <img src="/assets/logoshort.png" alt="logo" />
-          </div>
           <img
             src={'https://' + data?.cover}
             alt={'Listing'}
