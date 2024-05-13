@@ -162,18 +162,19 @@ const ContractPage = () => {
         </p>
         <h2 className="my-4 text-xl font-bold">第四条租金及支付方式</h2>
         <p>
-          该房屋租金为{' '}
-          <span className="text-p">
-            {record.price}每{PriceTypeMap[record.priceType]}
+          该房屋租金为 <span className="text-p">{record.price}</span>
+          <span>
+            {'('}每
+            <span className="text-p">{PriceTypeMap[record.priceType]}</span>
+            {')'}
           </span>
-          （税前），
-          房屋租金支付方式为线下现金或电子支付，后续租金应在前一期租金到期日前 3
-          天支付。
+          , 房屋租金支付方式为线下现金或电子支付，后续租金应在前一期租金到期日前
+          3 天支付。
         </p>
         <h2 className="my-4 text-xl font-bold">第五条押金</h2>
         <p>
           　甲、乙双方自本合同签订之日起，由乙方支付甲方押金
-          <span className="text-p">{record.listing?.deposit}</span>
+          <span className="text-p">{record.listing?.deposit}</span>元
           ，租赁期满，房屋经甲方验收合格后全额退还给乙方。
         </p>
         <ContractInfo />

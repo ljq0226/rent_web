@@ -14,8 +14,9 @@ import {
 import ListingInfo from './listinginfo';
 import useStorage from '@/utils/useStorage';
 import Loader from '@/components/Loader';
-import { Radio, Form } from '@arco-design/web-react';
+import { Radio, Form, Cascader } from '@arco-design/web-react';
 import { parseUrl } from '@/utils';
+import { cityOptions, cityString } from './cityoptions';
 const RadioGroup = Radio.Group;
 const FormItem = Form.Item;
 const HomePage = () => {
@@ -25,7 +26,8 @@ const HomePage = () => {
   const [price, setPrice] = useState();
   const [rentType, setRentType] = useState();
   const [roomCount, setRoomCount] = useState();
-
+  const [city, setCity] = useState('');
+  const [selectValue, setSelectValue] = useState<any>('');
   const location = useLocation();
   const [searchInput, setSearchInput] = useState(
     parseUrl(location.search)['searchInput'] || ''
@@ -37,7 +39,7 @@ const HomePage = () => {
       rentType,
       roomCount,
       searchInput,
-      isShort: true,
+      isShort: 1,
     };
     const queryString = Object.keys(body)
       .map((key) => {
@@ -66,15 +68,6 @@ const HomePage = () => {
   };
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    if (searchInput) {
-      setLoading(true);
-      getListDataBySearch(searchInput);
-    } else {
-      getListData();
-    }
-  }, [searchInput]);
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
     if (price !== undefined) {
       (price as number) < 0
         ? searchParams.delete('price')
@@ -93,14 +86,31 @@ const HomePage = () => {
         : searchParams.set('roomCount', roomCount);
     }
     getListDataBySearch(searchInput);
+
     history.replace({
       pathname: location.pathname,
       search: searchParams.toString(),
     });
   }, [price, rentType, roomCount, searchInput]);
   useEffect(() => {
+    if (searchInput) {
+      setLoading(true);
+      getListDataBySearch(searchInput);
+    } else {
+      getListData();
+    }
+  }, [searchInput]);
+
+  useEffect(() => {
+    const state = location.state as any;
+    if (state?.city) {
+      const a: any = cityString(state?.city);
+      setSelectValue(a);
+    }
+  }, [location.state]);
+  useEffect(() => {
     setSearchInput(parseUrl(location.search)['searchInput']);
-  }, [location.search]);
+  }, []);
   return (
     <div>
       <Switch>
@@ -112,6 +122,22 @@ const HomePage = () => {
             <div className="max-w-[2520px] mx-auto xl:px-20 md:px-10 sm:px-2 px-4">
               <div className="flex flex-col px-4 pt-12">
                 <div className="flex items-center justify-center">
+                  <div className="flex items-center justify-center mr-2">
+                    城市:
+                  </div>
+                  <Cascader
+                    placeholder="选择城市"
+                    expandTrigger="hover"
+                    onChange={(value: any) => {
+                      setCity(value[1]);
+                    }}
+                    style={{ width: 300, marginBottom: 10 }}
+                    options={cityOptions}
+                    value={selectValue}
+                  />
+                  <div className="flex-1"></div>
+                </div>
+                <div className="flex items-center justify-center mb-2">
                   <div className="flex items-center justify-center mr-2">
                     租金:
                   </div>
@@ -132,7 +158,7 @@ const HomePage = () => {
                   </RadioGroup>
                   <div className="flex-1"></div>
                 </div>
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center mb-2">
                   <div className="flex items-center justify-center mr-2">
                     厅室:
                   </div>
@@ -151,7 +177,7 @@ const HomePage = () => {
                   </RadioGroup>
                   <div className="flex-1"></div>
                 </div>
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center mb-2">
                   <div className="flex items-center justify-center mr-2">
                     方式:
                   </div>

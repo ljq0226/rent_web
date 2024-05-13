@@ -28,6 +28,10 @@ const ListingDescription = ({ listing }) => {
       value: listing?.price,
     },
     {
+      label: '押金',
+      value: listing?.deposit,
+    },
+    {
       label: '租赁周期',
       value: '每' + PriceTypeMap[listing?.priceType],
     },
