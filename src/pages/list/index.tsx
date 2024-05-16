@@ -7,18 +7,15 @@ import {
   Route,
   Switch,
   useRouteMatch,
-  useParams,
   useHistory,
   useLocation,
 } from 'react-router-dom';
 import ListingInfo from './listinginfo';
-import useStorage from '@/utils/useStorage';
 import Loader from '@/components/Loader';
 import { Radio, Form, Cascader } from '@arco-design/web-react';
 import { parseUrl } from '@/utils';
 import { cityOptions, cityString } from './cityoptions';
 const RadioGroup = Radio.Group;
-const FormItem = Form.Item;
 const HomePage = () => {
   let { path } = useRouteMatch();
   const history = useHistory();
@@ -40,6 +37,7 @@ const HomePage = () => {
       roomCount,
       searchInput,
       isShort: 1,
+      city,
     };
     const queryString = Object.keys(body)
       .map((key) => {
@@ -91,7 +89,7 @@ const HomePage = () => {
       pathname: location.pathname,
       search: searchParams.toString(),
     });
-  }, [price, rentType, roomCount, searchInput]);
+  }, [price, rentType, roomCount]);
   useEffect(() => {
     if (searchInput) {
       setLoading(true);
@@ -108,6 +106,11 @@ const HomePage = () => {
       setSelectValue(a);
     }
   }, [location.state]);
+
+  useEffect(() => {
+    setLoading(true);
+    getListDataBySearch(searchInput);
+  }, [selectValue]);
   useEffect(() => {
     setSearchInput(parseUrl(location.search)['searchInput']);
   }, []);
@@ -126,10 +129,16 @@ const HomePage = () => {
                     城市:
                   </div>
                   <Cascader
+                    allowClear
                     placeholder="选择城市"
                     expandTrigger="hover"
                     onChange={(value: any) => {
-                      setCity(value[1]);
+                      console.log('value', value);
+                      if (value == undefined) {
+                      } else {
+                        setCity(value[1]);
+                        setSelectValue(value);
+                      }
                     }}
                     style={{ width: 300, marginBottom: 10 }}
                     options={cityOptions}

@@ -3,7 +3,7 @@ import { Comment, List, Message, Popover, Rate } from '@arco-design/web-react';
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 interface Props {
-  listing: any;
+  reviewList: any;
 }
 
 const RatingInfo = [
@@ -32,28 +32,10 @@ const RatingInfo = [
     value: 'value',
   },
 ];
-const ListingReviewList = ({ listing }: Props) => {
-  const [reviewList, setReviewList] = useState([]);
-
-  useEffect(() => {
-    getReview();
-  }, []);
-  const getReview = async () => {
-    try {
-      const { code, msg, data }: any = await get(
-        'review/get_review/' + listing.id
-      );
-      if (code === 200) {
-        setReviewList(data?.arr);
-      } else {
-        Message.error(msg);
-      }
-    } catch (error) {
-      Message.error(error.toString());
-    }
-  };
+const ListingReviewList = ({ reviewList }: Props) => {
   return (
     <div>
+      {reviewList.length == 0 && <p>该房源暂无用户评价</p>}
       {reviewList.map((item: any) => {
         const tenant = item?.Tenant;
         const rating = item?.rating;

@@ -1,6 +1,6 @@
 import { Star } from 'lucide-react';
 import ListingCategory from './ListingCategory';
-import { Modal } from '@arco-design/web-react';
+import { Message, Modal } from '@arco-design/web-react';
 
 import { Avatar } from '@arco-design/web-react';
 import { useEffect, useState } from 'react';
@@ -8,10 +8,28 @@ import { get, post } from '@/utils/http';
 import ListingReviewList from './ListingReviewList';
 const ListingInfo = ({ listing }: any) => {
   const [visible, setVisible] = useState(false);
+  const [reviewList, setReviewList] = useState([]);
   const [landlord, setLandlord] = useState(null);
   useEffect(() => {
     if (listing?.landlordId) getLandlordInfo();
   }, [listing?.landlordId]);
+  useEffect(() => {
+    getReview();
+  }, []);
+  const getReview = async () => {
+    try {
+      const { code, msg, data }: any = await get(
+        'review/get_review/' + listing.id
+      );
+      if (code === 200) {
+        setReviewList(data?.arr);
+      } else {
+        Message.error(msg);
+      }
+    } catch (error) {
+      Message.error(error.toString());
+    }
+  };
   const getLandlordInfo = async () => {
     const { code, data, msg } = await get(`landlord/${listing?.landlordId}`);
     if (code == 200) {
@@ -43,7 +61,7 @@ const ListingInfo = ({ listing }: any) => {
             <div className="ml-1">4.86</div>
             <div className="mx-2">·</div>
             <div className="font-semibold underline cursor-pointer">
-              {'23 条评价'}
+              {reviewList.length + ' 条评价'}
             </div>
           </div>
         </div>
@@ -88,7 +106,7 @@ const ListingInfo = ({ listing }: any) => {
         </div>
         <hr />
         <div className="text-2xl font-bold">{'评论区'}</div>
-        <ListingReviewList listing={listing} />
+        <ListingReviewList reviewList={reviewList} />
       </div>
       <Modal
         title="关于此房源"
