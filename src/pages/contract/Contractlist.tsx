@@ -29,7 +29,8 @@ const Contractlist = () => {
         tabPosition={'left'}
         className={'w-full px-[20%] h-[80vh]'}
       >
-        {contractList.map((item: any) => {
+        {contractList?.length == 0 && <div>暂无合同</div>}
+        {contractList?.map((item: any) => {
           return (
             <TabPane key={item.id} title={item.title}>
               <a

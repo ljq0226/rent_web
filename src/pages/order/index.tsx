@@ -72,10 +72,11 @@ const App = () => {
     <div className="w-full h-[80vh] px-[12vw] mt-4">
       <div className="flex w-full h-full border border-gray-500">
         <div className="border-r w-[20vw]  overflow-hidden">
+          {orderList?.length == 0 && <div>暂无订单</div>}
           {orderList.map((item: any, index) => {
             return (
               <div
-                className="flex w-full p-2 h-[10vh] border-b border-gray-500 hover:bg-gray-100 cursor-pointer"
+                className="flex w-full p-2 h-[12vh] border-b border-gray-500 hover:bg-gray-100 cursor-pointer"
                 onClick={() => {
                   setCurOrderIndex(index);
                 }}

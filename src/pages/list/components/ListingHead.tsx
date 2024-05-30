@@ -4,7 +4,7 @@ import { Image, Carousel } from '@arco-design/web-react';
 const ListingHead = ({ title, locationValue, id, imageSrc, listing }: any) => {
   return (
     <>
-      <Heading listing={listing} title={title} subTitle={'SHANGHAI'} />
+      <Heading listing={listing} title={title} />
       <figure className="relative flex h-[60vh] w-full overflow-hidden rounded-xl">
         {/* <img alt="Image" src={imageSrc} className="object-cover w-full" />
          */}
@@ -13,13 +13,13 @@ const ListingHead = ({ title, locationValue, id, imageSrc, listing }: any) => {
           autoPlay={true}
           indicatorType="dot"
           showArrow="hover"
-          className={'w-[50vw]'}
+          className={'w-[42.5vw] object-cover'}
         >
           {imageSrc?.split(';').map((src, index) => (
             <div key={index}>
               <Image
                 src={'https://' + src}
-                className="w-min-[60vw] object-center overflow-hidden"
+                className="object-cover overflow-hidden"
               />
             </div>
           ))}

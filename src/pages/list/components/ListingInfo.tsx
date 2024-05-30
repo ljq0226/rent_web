@@ -72,7 +72,11 @@ const ListingInfo = ({ listing }: any) => {
             <Avatar className={'cursor-pointer'}>
               <img
                 alt="avatar"
-                src={'https://' + landlord?.avatar || '/assets/avatar.jpg'}
+                src={
+                  landlord?.avatar
+                    ? 'https://' + landlord?.avatar
+                    : 'https://rent-1309372570.cos.ap-chongqing.myqcloud.com/avatar%2520copy.jpg'
+                }
               />
             </Avatar>
             <div className="text-xl font-semibold">{landlord?.username}</div>

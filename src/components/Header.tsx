@@ -114,7 +114,7 @@ function Header({ placeholder = '', setSearchInput, searchInput }: any) {
               const value = event.target.value;
               const debouncedFunction = debounce(
                 () => setSearchInput(value),
-                800
+                1000
               );
               // debounce(setSearchInput(value), 100);
               debouncedFunction();

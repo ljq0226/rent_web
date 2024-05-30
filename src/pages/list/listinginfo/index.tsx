@@ -27,7 +27,7 @@ const ListingInfoApp = () => {
   return (
     <div className="max-w-[2520px] mx-auto xl:px-20 md:px-10 sm:px-2 px-4">
       <div className="max-w-screen-lg mx-auto ">
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 mt-4">
           <ListingHead
             title={listing?.title}
             // imageSrc={'https://' + listing.cover}

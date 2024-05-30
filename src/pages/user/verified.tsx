@@ -60,6 +60,10 @@ function Verified() {
             label: '身份证',
             value: userInfo?.cardId,
           },
+          {
+            label: '联系电话',
+            value: userInfo?.phone,
+          },
           // {
           //   label: '电子签名',
           //   value: (

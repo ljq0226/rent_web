@@ -34,8 +34,8 @@ const ListingCard = ({ data }: Props) => {
           {data?.title}
           <div className="flex-1"></div>
           <div className="flex justify-center ">
-            <Star fill="black" className="w-[20px] h-[20px]" />
-            <div>4.86</div>
+            {/* <Star fill="black" className="w-[20px] h-[20px]" />
+            <div>4.86</div> */}
           </div>
 
           {/* {location?.region}, {location?.label} */}
