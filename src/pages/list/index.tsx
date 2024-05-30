@@ -15,6 +15,7 @@ import Loader from '@/components/Loader';
 import { Radio, Form, Cascader } from '@arco-design/web-react';
 import { parseUrl } from '@/utils';
 import { cityOptions, cityString } from './cityoptions';
+import useStorage from '@/utils/useStorage';
 const RadioGroup = Radio.Group;
 const HomePage = () => {
   let { path } = useRouteMatch();
@@ -26,10 +27,9 @@ const HomePage = () => {
   const [city, setCity] = useState('');
   const [selectValue, setSelectValue] = useState<any>('');
   const location = useLocation();
-  const [searchInput, setSearchInput] = useState(
-    parseUrl(location.search)['searchInput'] || ''
-  );
   const [loading, setLoading] = useState(false);
+  const [searchInput, setSearchInput] = useStorage('searchInput', '');
+
   const getListDataBySearch = async (searchInput: string) => {
     const body = {
       price,
@@ -41,6 +41,7 @@ const HomePage = () => {
     };
     const queryString = Object.keys(body)
       .map((key) => {
+        if (key == 'city' && body[key] == '') return '';
         if (body[key] !== undefined) {
           return key + '=' + encodeURIComponent(body[key]);
         } else {
@@ -91,6 +92,7 @@ const HomePage = () => {
     });
   }, [price, rentType, roomCount]);
   useEffect(() => {
+    console.log('searchInput', searchInput);
     if (searchInput) {
       setLoading(true);
       getListDataBySearch(searchInput);
@@ -112,10 +114,11 @@ const HomePage = () => {
     getListDataBySearch(searchInput);
   }, [selectValue]);
   useEffect(() => {
-    setSearchInput(parseUrl(location.search)['searchInput']);
+    // setSearchInput(parseUrl(location.search)['searchInput']);
   }, []);
   return (
     <div>
+      <Header searchInput={searchInput} setSearchInput={setSearchInput}/>
       <Switch>
         <Route exact path={path}>
           {/* 当用户访问 "/list" 时，显示这里的内容 */}

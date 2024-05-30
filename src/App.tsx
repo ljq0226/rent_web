@@ -45,7 +45,7 @@ function App() {
             <WishList />
           </Route>
           <Route path="/list">
-            <Header />
+           
             <List />
           </Route>
           <Route path="/rentlist">

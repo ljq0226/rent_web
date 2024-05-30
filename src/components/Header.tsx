@@ -4,9 +4,20 @@ import { Link, useHistory } from 'react-router-dom';
 import { Avatar, Dropdown, Menu, Button, Space } from '@arco-design/web-react';
 import useStorage from '@/utils/useStorage';
 import Logo from './Logo';
-function Header({ placeholder = '' }) {
+// import { debounce } from 'lodash';
+function debounce(func, wait) {
+  let timeout;
+  return function (...args) {
+    const context = this;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      func.apply(context, args);
+    }, wait);
+  };
+}
+
+function Header({ placeholder = '', setSearchInput, searchInput }: any) {
   const inputRef = useRef(null);
-  const [searchInput, setSearchInput] = useStorage('searchInput', '');
   const [tenantUser, , removeTenantUser] = useStorage('tenantUser');
   const user = JSON.parse(localStorage.getItem('rent_tenant') as string);
   const history = useHistory();
@@ -98,8 +109,16 @@ function Header({ placeholder = '' }) {
             ref={inputRef}
             className="flex-1 pl-2 truncate bg-transparent outline-none text-gray-6 00"
             placeholder={placeholder ? placeholder : '输入你想去的地方'}
-            value={searchInput}
-            onChange={(event) => setSearchInput(event.target.value)}
+            onChange={(event) => {
+              console.log('aaaasasasassa');
+              const value = event.target.value;
+              const debouncedFunction = debounce(
+                () => setSearchInput(value),
+                800
+              );
+              // debounce(setSearchInput(value), 100);
+              debouncedFunction();
+            }}
             onKeyDown={(event) => event.key === 'Enter' && handleSearch()}
           />
           {searchInput && (
