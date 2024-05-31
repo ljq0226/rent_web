@@ -26,9 +26,9 @@ const ListingCard = ({ data }: Props) => {
             height={220}
             width={220}
           />
-          <div className={`absolute top-3 right-3`}>
-            {/* <HeartButton listingId={data.id} currentUser={currentUser} /> */}
-          </div>
+          {/* <div className={`absolute top-3 right-3`}>
+            <HeartButton listingId={data.id} currentUser={currentUser} />
+          </div> */}
         </figure>
         <div className="flex text-lg font-semibold ">
           {data?.title}
