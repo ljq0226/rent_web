@@ -54,21 +54,21 @@ export const liveAnywhere = [
   {
     "id": "2a5c2d86-fb19-43b1-a0f2-2069c0d1a41f",
     "img": "/assets/live-anywhere/2io.webp",
-    "title": "Outdoor getaways"
+    "title": "阿勒泰"
   },
   {
     "id": "4c9d6acf-041f-4a4e-8a86-51475ccde4b0",
     "img": "/assets/live-anywhere/q7j.webp",
-    "title": "Unique stays"
+    "title": "赛里木湖"
   },
   {
     "id": "e9278833-f963-4af0-9edc-fe372ded10cb",
     "img": "/assets/live-anywhere/s03.webp",
-    "title": "Entire homes"
+    "title": "原野民宿"
   },
   {
     "id": "f588e9ce-32c4-47da-922f-b667265111d2",
     "img": "/assets/live-anywhere/8ix.webp",
-    "title": "Pet allowed"
+    "title": "旅居小屋"
   }
 ]

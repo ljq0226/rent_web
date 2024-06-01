@@ -6,7 +6,7 @@ const Footer = () => {
         className="transition hover:text-blue-600"
         href={`https://github.com/ljq0226`}
       >
-        ljq0226
+        ljq0226 云端租舍
       </a>
     </footer>
   );

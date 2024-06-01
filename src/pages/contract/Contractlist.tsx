@@ -27,12 +27,14 @@ const Contractlist = () => {
       <Tabs
         key="card"
         tabPosition={'left'}
-        className={'w-full px-[20%] h-[80vh]'}
+        className={
+          'w-full mx-auto h-[80vh]  pt-[4vh] border border-solid border-gray-200'
+        }
       >
         {contractList?.length == 0 && <div>暂无合同</div>}
         {contractList?.map((item: any) => {
           return (
-            <TabPane key={item.id} title={item.title}>
+            <TabPane key={item.id} title={item.title} className={'w-[60vw]'}>
               <a
                 href={'https://' + item?.url}
                 download
